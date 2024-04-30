@@ -59,18 +59,18 @@ func (s *Symbol) Each(f func(string)) {
 
 // Type retrieves type of decoded symbol.
 func (s *Symbol) Type() int {
-	return int(C.zbar_symbol_get_type(s.c_symbol))
+	return int(C.zbar_symbol_get_type(s.symbol))
 }
 
 // Name retrieves string name for symbol encoding.
 func (s *Symbol) Name() string {
-	cstr := C.zbar_get_symbol_name(C.zbar_symbol_get_type(s.c_symbol))
+	cstr := C.zbar_get_symbol_name(C.zbar_symbol_get_type(s.symbol))
 	return C.GoString(cstr)
 }
 
 // AddonName retrieves string name for addon encoding
 func (s *Symbol) AddonName() string {
-	return C.GoString(C.zbar_get_addon_name(C.zbar_symbol_get_type(s.c_symbol)))
+	return C.GoString(C.zbar_get_addon_name(C.zbar_symbol_get_type(s.symbol)))
 }
 
 // Quality retrieves a symbol confidence metric.
@@ -81,7 +81,7 @@ func (s *Symbol) AddonName() string {
 //	expect the exact definition of this quantity to change as the metric is refined.
 //	Currently, only the ordered relationship between two values is defined and will remain stable in the future
 func (s *Symbol) Quality() int {
-	return int(C.zbar_symbol_get_quality(s.c_symbol))
+	return int(C.zbar_symbol_get_quality(s.symbol))
 }
 
 // Retrieve the number of points in the location polygon.
@@ -91,7 +91,7 @@ func (s *Symbol) Quality() int {
 //
 //	this is currently not a polygon, but the scan locations where the symbol was decoded
 func (s *Symbol) LocSize() uint {
-	return uint(C.zbar_symbol_get_loc_size(s.c_symbol))
+	return uint(C.zbar_symbol_get_loc_size(s.symbol))
 }
 
 // LocX retrieves location polygon x-coordinates.
@@ -101,7 +101,7 @@ func (s *Symbol) LocSize() uint {
 //	the x-coordinate for a point in the location polygon.
 //	-1 if index is out of range
 func (s *Symbol) LocX(index uint) int {
-	return int(C.zbar_symbol_get_loc_x(s.c_symbol, C.unsigned(index)))
+	return int(C.zbar_symbol_get_loc_x(s.symbol, C.unsigned(index)))
 }
 
 // LocY retrieves location polygon y-coordinates.
@@ -111,5 +111,5 @@ func (s *Symbol) LocX(index uint) int {
 //	the y-coordinate for a point in the location polygon.
 //	-1 if index is out of range
 func (s *Symbol) LocY(index uint) int {
-	return int(C.zbar_symbol_get_loc_y(s.c_symbol, C.unsigned(index)))
+	return int(C.zbar_symbol_get_loc_y(s.symbol, C.unsigned(index)))
 }
