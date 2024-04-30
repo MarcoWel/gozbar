@@ -57,6 +57,8 @@ func (s *Symbol) Each(f func(string)) {
 	}
 }
 
+// Additions
+
 // Name retrieves string name for symbol encoding.
 func (s *Symbol) Name() string {
 	cstr := C.zbar_get_symbol_name(C.zbar_symbol_get_type(s.symbol))
