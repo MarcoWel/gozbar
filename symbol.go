@@ -56,3 +56,33 @@ func (s *Symbol) Each(f func(string)) {
 		}
 	}
 }
+
+// Retrieve the number of points in the location polygon.
+// The location polygon defines the image area that the symbol was extracted from.
+// Returns the number of points in the location polygon
+// Note:
+//
+//	this is currently not a polygon, but the scan locations where the symbol was decoded
+func (s *Symbol) GetLocSize() uint {
+	return uint(C.zbar_symbol_get_loc_size(s.c_symbol))
+}
+
+// GetLocX retrieves location polygon x-coordinates.
+// Points are specified by 0-based index.
+// Returns:
+//
+//	the x-coordinate for a point in the location polygon.
+//	-1 if index is out of range
+func (s *Symbol) GetLocX(index uint) int {
+	return int(C.zbar_symbol_get_loc_x(s.c_symbol, C.unsigned(index)))
+}
+
+// GetLocY retrieves location polygon y-coordinates.
+// Points are specified by 0-based index.
+// Returns:
+//
+//	the y-coordinate for a point in the location polygon.
+//	-1 if index is out of range
+func (s *Symbol) GetLocY(index uint) int {
+	return int(C.zbar_symbol_get_loc_y(s.c_symbol, C.unsigned(index)))
+}
